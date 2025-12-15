@@ -24,9 +24,10 @@ header .container {
 
 /* HERO */
 .hero {
-  display:grid;
-  grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);
-  gap:1.5rem;
+  display: grid;
+  grid-template-columns: 70% 30%;   /* gauche = 70 %, droite = 30 % */
+  align-items: center;
+  gap: 2rem;
 }
 .hero-main { max-width:600px; }
 .hero-name { font-size:clamp(2rem,4vw,2.6rem); font-weight:800; letter-spacing:-0.03em; }
@@ -130,3 +131,4 @@ footer {
   .hero { grid-template-columns:1fr; }
   .hero-side { max-width:100%; margin-top:1rem; }
 }
+
