@@ -1,232 +1,400 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="light">
 <head>
   <meta charset="UTF-8">
-  <title>Portfolio - Ahmed Mouine</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="style.css">
+  <title>Portfolio - Ahmed Mouine</title>
+  <meta name="description" content="Portfolio professionnel d'Ahmed Mouine, spécialisé en IoT, cybersécurité, systèmes embarqués et réseaux.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&f[]=boska@400,500,700&display=swap" rel="stylesheet">
+  <style>
+    :root, [data-theme="light"] {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --text-2xl: clamp(2rem, 1.2rem + 2.5vw, 3.5rem);
+      --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-5: 1.25rem;
+      --space-6: 1.5rem; --space-8: 2rem; --space-10: 2.5rem; --space-12: 3rem; --space-16: 4rem; --space-20: 5rem;
+      --color-bg: #f7f6f2; --color-surface: #f9f8f5; --color-surface-2: #fbfbf9; --color-surface-offset: #edeae5;
+      --color-border: #d4d1ca; --color-text: #28251d; --color-text-muted: #6f6d67; --color-text-faint: #9c9992;
+      --color-primary: #01696f; --color-primary-hover: #0c4e54; --color-primary-highlight: #d9ecea; --color-blue: #006494;
+      --shadow-sm: 0 1px 2px rgba(29, 28, 26, 0.06); --shadow-md: 0 10px 30px rgba(29, 28, 26, 0.08);
+      --radius-sm: 0.375rem; --radius-md: 0.75rem; --radius-lg: 1rem; --radius-xl: 1.25rem; --radius-full: 999px;
+      --content: 1120px;
+      --font-display: 'Boska', Georgia, serif;
+      --font-body: 'Satoshi', Inter, sans-serif;
+    }
+    [data-theme="dark"] {
+      --color-bg: #171614; --color-surface: #1c1b19; --color-surface-2: #201f1d; --color-surface-offset: #262320;
+      --color-border: #393836; --color-text: #e5e1d8; --color-text-muted: #b4b0a7; --color-text-faint: #7f7b74;
+      --color-primary: #4f98a3; --color-primary-hover: #66aab4; --color-primary-highlight: #24373a; --color-blue: #69a6d7;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.2); --shadow-md: 0 10px 30px rgba(0,0,0,0.28);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { margin: 0; min-height: 100vh; font-family: var(--font-body); font-size: var(--text-base); line-height: 1.65; color: var(--color-text); background: var(--color-bg); }
+    a { color: inherit; text-decoration: none; }
+    img, svg { max-width: 100%; display: block; }
+    .container { width: min(calc(100% - 2rem), var(--content)); margin: 0 auto; }
+    .skip-link { position: absolute; left: -999px; top: 0; }
+    .skip-link:focus { left: 1rem; top: 1rem; z-index: 100; background: var(--color-primary); color: white; padding: 0.75rem 1rem; border-radius: var(--radius-md); }
+    .site-header { position: sticky; top: 0; z-index: 50; background: rgba(247,246,242,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(40,37,29,0.08); }
+    [data-theme="dark"] .site-header { background: rgba(23,22,20,0.88); border-bottom-color: rgba(229,225,216,0.08); }
+    .nav { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); padding: var(--space-4) 0; }
+    .brand { display: flex; align-items: center; gap: 0.85rem; font-weight: 700; }
+    .brand-mark { width: 2.5rem; height: 2.5rem; border-radius: 50%; background: linear-gradient(135deg, var(--color-primary), var(--color-blue)); display: grid; place-items: center; color: white; font-weight: 900; }
+    .nav-links { display: flex; flex-wrap: wrap; gap: 1rem; font-size: var(--text-sm); color: var(--color-text-muted); }
+    .theme-toggle { min-width: 44px; min-height: 44px; border-radius: 50%; border: 1px solid rgba(40,37,29,0.1); background: var(--color-surface); color: var(--color-text); }
+    .hero { padding: clamp(3rem, 8vw, 7rem) 0 clamp(2.5rem, 7vw, 5rem); display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--space-8); align-items: start; }
+    .hero-card, .section-card, .project-card, .timeline-card { background: var(--color-surface); border: 1px solid rgba(40,37,29,0.08); border-radius: var(--radius-xl); box-shadow: var(--shadow-sm); }
+    [data-theme="dark"] .hero-card, [data-theme="dark"] .section-card, [data-theme="dark"] .project-card, [data-theme="dark"] .timeline-card, [data-theme="dark"] .theme-toggle { border-color: rgba(229,225,216,0.08); }
+    .hero-main { padding: clamp(1.5rem, 4vw, 3rem); }
+    .eyebrow { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.45rem 0.8rem; border-radius: var(--radius-full); background: var(--color-primary-highlight); color: var(--color-primary); font-size: var(--text-xs); font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase; }
+    .hero h1 { margin: 1rem 0; font-family: var(--font-display); font-size: var(--text-2xl); line-height: 1; max-width: 12ch; }
+    .hero p { color: var(--color-text-muted); max-width: 62ch; }
+    .hero-badges, .pill-list { display: flex; flex-wrap: wrap; gap: 0.75rem; padding: 0; list-style: none; }
+    .badge, .pill { padding: 0.6rem 0.9rem; border-radius: var(--radius-full); background: var(--color-surface-2); border: 1px solid rgba(40,37,29,0.08); font-size: var(--text-sm); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+    .btn-primary, .btn-outline { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0.9rem 1.2rem; border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 700; }
+    .btn-primary { background: var(--color-primary); color: white; }
+    .btn-primary:hover { background: var(--color-primary-hover); }
+    .btn-outline { border: 1px solid rgba(40,37,29,0.12); background: transparent; }
+    .hero-side { padding: clamp(1.5rem, 4vw, 2.5rem); display: grid; gap: 1rem; }
+    .stat-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+    .stat { padding: 1rem; border-radius: var(--radius-lg); background: var(--color-surface-2); }
+    .stat strong { display: block; font-size: var(--text-lg); }
+    main section { padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
+    .section-heading { display: flex; justify-content: space-between; gap: 1rem; align-items: end; margin-bottom: 1.5rem; }
+    h2 { margin: 0; font-family: var(--font-display); font-size: var(--text-xl); }
+    h3 { margin: 0 0 0.75rem; font-size: var(--text-lg); }
+    .section-lead { color: var(--color-text-muted); max-width: 70ch; }
+    .about-grid, .skills-grid, .projects-grid, .timeline-grid { display: grid; gap: 1.25rem; }
+    .about-grid { grid-template-columns: 1fr 1fr; }
+    .skills-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .projects-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .timeline-grid { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .section-card, .project-card, .timeline-card { padding: 1.5rem; }
+    .project-meta { font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.05em; color: var(--color-primary); font-weight: 700; margin-bottom: 0.75rem; }
+    .project-tech { color: var(--color-text-muted); font-size: var(--text-sm); }
+    .project-card ul, .timeline-card ul, .contact-list { padding-left: 1.1rem; color: var(--color-text-muted); }
+    .contact-wrap { display: grid; grid-template-columns: 1fr 0.9fr; gap: 1.25rem; }
+    .contact-panel { padding: 1.5rem; background: var(--color-surface); border: 1px solid rgba(40,37,29,0.08); border-radius: var(--radius-xl); }
+    .footer { padding: 2rem 0 3rem; color: var(--color-text-muted); font-size: var(--text-sm); }
+    @media (max-width: 960px) {
+      .hero, .about-grid, .skills-grid, .projects-grid, .timeline-grid, .contact-wrap { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; }
+      .nav-links { display: none; }
+    }
+  </style>
 </head>
 <body>
-
-<header id="accueil">
-
-
-    <div class="hero">
-      <div class="hero-main">
-        <div class="hero-name">Ahmed Mouine</div>
-        <p class="hero-tagline">
-          Étudiant en Licence Réseaux et Internet des Objets, passionné par la
-          programmation embarquée, l’IoT, la cybersécurité et le développement
-          des systèmes connectés .
-        </p>
-        <div class="hero-badges">
-          <span class="badge">IoT & Systèmes embarqués</span>
-          <span class="badge">Python · C · Java · Linux</span>
-          <span class="badge">Web & Data · Flask · n8n</span>
-        </div>
-        <div class="hero-actions">
-          <a class="btn-primary" href="#projets">Voir mes projets</a>
-          <a class="btn-outline" href="#contact">Me contacter</a>
-        </div>
-      </div>
-
-      <div class="hero-side">
-        <p><strong>Actuellement :</strong> Licence RIOT à l’Institut Supérieur
-          d’Informatique et de Mathématiques de Monastir (ISIMM).</p>
-        <p>
-          Développeur passionné par l’IoT, la programmation embarquée et la
-          cybersécurité, je conçois des systèmes connectés mêlant électronique,
-          automatisation et logiciels intelligents. Classé 10ᵉ nationalement
-          et 71ᵉ sur 8169 à l’IEEE Extreme 19.0, j’aime relever des défis
-          techniques, optimiser des architectures et sécuriser des environnements
-          numériques. Toujours curieux, j’explore et crée des solutions fiables,
-          performantes et orientées innovation.
-        </p>
-      </div>
+  <a class="skip-link" href="#main-content">Aller au contenu</a>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#accueil" aria-label="Accueil Ahmed Mouine">
+        <span class="brand-mark">AM</span>
+        <span>Ahmed Mouine</span>
+      </a>
+      <nav class="nav-links" aria-label="Navigation principale">
+        <a href="#apropos">À propos</a>
+        <a href="#competences">Compétences</a>
+        <a href="#projets">Projets</a>
+        <a href="#competitions">Compétitions</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Changer de thème">◐</button>
     </div>
-  </div>
-</header>
+  </header>
 
-<main class="container-main">
+  <main id="main-content">
+    <section id="accueil">
+      <div class="container hero">
+        <article class="hero-card hero-main">
+          <span class="eyebrow">IoT · Cybersécurité · Réseaux</span>
+          <h1>Développeur de solutions connectées et sécurisées</h1>
+          <p>
+            Étudiant en Licence Réseaux et Internet des Objets, passionné par l’IoT, la programmation embarquée,
+            la cybersécurité et la conception de systèmes connectés fiables, intelligents et orientés terrain.
+          </p>
+          <div class="hero-badges" aria-label="Domaines principaux">
+            <span class="badge">IoT & systèmes embarqués</span>
+            <span class="badge">Python · C · Java · Linux</span>
+            <span class="badge">Cybersécurité & architecture réseau</span>
+            <span class="badge">Flask · Web · APIs · n8n</span>
+          </div>
+          <div class="hero-actions">
+            <a class="btn-primary" href="#projets">Voir mes projets</a>
+            <a class="btn-outline" href="#contact">Me contacter</a>
+          </div>
+        </article>
 
-  <section id="apropos">
-    <h2>À propos</h2>
-    <p>
-      Étudiant en Licence Réseaux et Internet des Objets, avec un intérêt particulier pour la conception de systèmes
-      connectés de bout en bout 
-    </p>
-    <p>
-      Les projets présentés ci-dessous illustrent cette approche full‑stack IoT : du code embarqué (ESP32, Arduino, STM32)
-      à l’intégration de l’intelligence artificielle et de flux d’automatisation (n8n, APIs) pour créer des solutions utiles.
-    </p>
-  </section>
-
-  <section id="competences">
-    <h2>Compétences</h2>
-    <div class="skills-grid">
-      <div class="skills-group">
-        <h3>Programmation</h3>
-        <ul class="pill-list">
-          <li class="pill">C</li>
-          <li class="pill">Python</li>
-          <li class="pill">SQL</li>
-          <li class="pill">Java</li>
-          <li class="pill">Linux</li>
-        </ul>
+        <aside class="hero-card hero-side">
+          <p><strong>Actuellement :</strong> Licence RIOT à l’Institut Supérieur d’Informatique et de Mathématiques de Monastir (ISIMM).</p>
+          <p>
+            Je conçois des projets mêlant électronique, automatisation, développement web et sécurité. Mon parcours couvre
+            l’IoT embarqué, l’intégration de capteurs, l’architecture réseau, les VPN, les pare-feu et les bases de la cybersécurité.
+          </p>
+          <div class="stat-grid" aria-label="Points forts">
+            <div class="stat"><strong>Top 10</strong><span>Classement national IEEE Xtreme 19.0</span></div>
+            <div class="stat"><strong>PFE</strong><span>Projet de fin d’études en cybersécurité</span></div>
+            <div class="stat"><strong>ESP32</strong><span>Projets IoT temps réel et automatisation</span></div>
+            <div class="stat"><strong>C embarqué</strong><span>Détection de choc, alerte et géolocalisation</span></div>
+          </div>
+        </aside>
       </div>
-      <div class="skills-group">
-        <h3>IoT & Embarqué</h3>
-        <ul class="pill-list">
-          <li class="pill">ESP32</li>
-          <li class="pill">Arduino</li>
-        </ul>
-      </div>
-      <div class="skills-group">
-        <h3>Web & Data</h3>
-        <ul class="pill-list">
-          <li class="pill">Flask (Python)</li>
-          <li class="pill">Interfaces web de suivi</li>
-          <li class="pill">Bases de données &amp; SQL</li>
-          <li class="pill">Google Sheets · APIs</li>
-          <li class="pill">Automatisation n8n</li>
-        </ul>
-      </div>
-      <div class="skills-group">
-        <h3>Outils & Simulation</h3>
-        <ul class="pill-list">
-          <li class="pill">Linux</li>
-          <li class="pill">Cisco Packet Tracer</li>
-          <li class="pill">Proteus</li>
-          <li class="pill">MATLAB</li>
-          <li class="pill">LabVIEW</li>
-        </ul>
-      </div>
-      <div class="skills-group">
-        <h3>Soft skills</h3>
-        <ul class="pill-list">
-          <li class="pill">Travail en équipe</li>
-          <li class="pill">Résolution de problèmes</li>
-          <li class="pill">Autonomie & curiosité</li>
-          <li class="pill">Compétitions techniques</li>
-        </ul>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <section id="projets">
-    <h2>Projets</h2>
-    <p class="tagline-small">
-      Une sélection de projets académiques et personnels autour de l’IoT, de l’IA et des applications web connectées.
-    </p>
-
-    <div class="projects-grid">
-
-      <article class="project-card">
-        <div class="project-meta">Smart Trash Can — PFA · ISIMM</div>
-        <h3>Système de tri automatique des déchets basé sur ESP32 et IA</h3>
-        <p class="project-tech">
-          ESP32 · Capteurs ultrasoniques · TensorFlow &amp; Python · Base de données · Application web (Flask)
-        </p>
-        <p>
-          Conception d’une poubelle intelligente capable de détecter le niveau de remplissage et de classifier les déchets
-          à l’aide d’un modèle d’intelligence artificielle, avec suivi en temps réel via une plateforme web.
-        </p>
-        <ul>
-          <li>Programmation de l’ESP32 et intégration des capteurs ultrasoniques pour la collecte de données en temps réel.</li>
-          <li>Entraînement et intégration d’un modèle TensorFlow en Python pour la classification des déchets.</li>
-          <li>Connexion à une base de données et développement d’une application web pour le suivi et l’affichage dynamique.</li>
-        </ul>
-        <div class="project-links">
+    <section id="apropos">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>À propos</h2>
+            <p class="section-lead">Un profil orienté projets, avec une approche pratique allant du code embarqué jusqu’aux interfaces web et aux mécanismes de sécurité.</p>
+          </div>
         </div>
-      </article>
-
-      <article class="project-card">
-        <div class="project-meta">Projet personnel</div>
-        <h3>Assistant de portefeuille personnel (n8n + IA + Telegram)</h3>
-        <p class="project-tech">
-          n8n · IA · Telegram Bot · Google Sheets · APIs · Automatisation de flux
-        </p>
-        <p>
-          Mise en place d’un assistant automatisé capable de suivre un portefeuille personnel, d’analyser des données
-          financières et de fournir des recommandations enrichies avec des informations contextuelles (dont la météo).
-        </p>
-        <ul>
-          <li>Création de workflows n8n connectés à Telegram et Google Sheets pour centraliser les données.</li>
-          <li>Automatisation de l’analyse financière et génération de conseils personnalisés.</li>
-          <li>Intégration d’APIs (dont météo) pour enrichir les scénarios et adapter les recommandations.</li>
-        </ul>
-        <div class="project-links">
+        <div class="about-grid">
+          <article class="section-card">
+            <h3>Approche technique</h3>
+            <p>
+              Je m’intéresse particulièrement à la conception de systèmes connectés de bout en bout : collecte de données,
+              traitement, automatisation, supervision web et sécurisation de l’infrastructure.
+            </p>
+          </article>
+          <article class="section-card">
+            <h3>Objectif professionnel</h3>
+            <p>
+              Développer des solutions IoT et réseau utiles sur le terrain, avec une attention portée à la robustesse,
+              à la maintenance, à la sécurité et à l’expérience utilisateur.
+            </p>
+          </article>
         </div>
-      </article>
+      </div>
+    </section>
 
-      <article class="project-card">
-        <div class="project-meta">Projet IoT</div>
-        <h3>Interface web connectée à des capteurs IoT</h3>
-        <p class="project-tech">
-          IoT · Web front‑end · Base de données · Visualisation temps réel
-        </p>
-        <p>
-          Développement d’une interface web permettant de visualiser en temps réel les données issues de capteurs IoT
-          connectés, avec stockage dans une base de données et affichage dynamique.
-        </p>
-        <ul>
-          <li>Conception de la structure de la base de données pour les mesures IoT.</li>
-          <li>Intégration de la collecte de données depuis des cartes type Arduino / ESP32.</li>
-          <li>Développement de l’interface web pour l’affichage en temps réel des valeurs et des courbes.</li>
-        </ul>
-        <div class="project-links">
+    <section id="competences">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Compétences</h2>
+            <p class="section-lead">Des compétences construites autour de l’embarqué, des réseaux, du web connecté et de la cybersécurité.</p>
+          </div>
         </div>
-      </article>
+        <div class="skills-grid">
+          <article class="section-card">
+            <h3>Programmation</h3>
+            <ul class="pill-list">
+              <li class="pill">C</li>
+              <li class="pill">Python</li>
+              <li class="pill">SQL</li>
+              <li class="pill">Java</li>
+              <li class="pill">Linux</li>
+            </ul>
+          </article>
+          <article class="section-card">
+            <h3>IoT & embarqué</h3>
+            <ul class="pill-list">
+              <li class="pill">ESP32</li>
+              <li class="pill">Arduino</li>
+              <li class="pill">Capteurs & actionneurs</li>
+              <li class="pill">Géolocalisation</li>
+              <li class="pill">Alertes GSM / SMS</li>
+            </ul>
+          </article>
+          <article class="section-card">
+            <h3>Web & data</h3>
+            <ul class="pill-list">
+              <li class="pill">Flask</li>
+              <li class="pill">Interfaces web de suivi</li>
+              <li class="pill">Bases de données & SQL</li>
+              <li class="pill">Google Sheets · APIs</li>
+              <li class="pill">Automatisation n8n</li>
+            </ul>
+          </article>
+          <article class="section-card">
+            <h3>Réseaux & cybersécurité</h3>
+            <ul class="pill-list">
+              <li class="pill">Architecture réseau</li>
+              <li class="pill">VPN</li>
+              <li class="pill">Pare-feu</li>
+              <li class="pill">Sécurité web</li>
+              <li class="pill">Analyse de vulnérabilités</li>
+            </ul>
+          </article>
+          <article class="section-card">
+            <h3>Outils & simulation</h3>
+            <ul class="pill-list">
+              <li class="pill">Cisco Packet Tracer</li>
+              <li class="pill">Proteus</li>
+              <li class="pill">MATLAB</li>
+              <li class="pill">LabVIEW</li>
+              <li class="pill">Shell scripting</li>
+            </ul>
+          </article>
+          <article class="section-card">
+            <h3>Soft skills</h3>
+            <ul class="pill-list">
+              <li class="pill">Travail en équipe</li>
+              <li class="pill">Résolution de problèmes</li>
+              <li class="pill">Autonomie & curiosité</li>
+              <li class="pill">Compétitions techniques</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
 
-    </div>
-  </section>
+    <section id="projets">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Projets</h2>
+            <p class="section-lead">Une sélection de projets académiques et personnels autour de l’IoT, des systèmes embarqués, du web connecté et de la cybersécurité.</p>
+          </div>
+        </div>
+        <div class="projects-grid">
+          <article class="project-card">
+            <div class="project-meta">Smart Trash Can — PFA · ISIMM</div>
+            <h3>Système de tri automatique des déchets basé sur ESP32 et IA</h3>
+            <p class="project-tech">ESP32 · Capteurs ultrasoniques · TensorFlow · Python · Base de données · Flask</p>
+            <p>Conception d’une poubelle intelligente capable de détecter le niveau de remplissage et de classifier les déchets à l’aide d’un modèle d’intelligence artificielle, avec suivi en temps réel via une plateforme web.</p>
+            <ul>
+              <li>Programmation de l’ESP32 et intégration de capteurs ultrasoniques pour la collecte en temps réel.</li>
+              <li>Entraînement et intégration d’un modèle TensorFlow pour la classification des déchets.</li>
+              <li>Développement d’une application web connectée à la base de données pour le suivi dynamique.</li>
+            </ul>
+          </article>
 
-  <section id="competitions">
-    <h2>Compétitions & challenges</h2>
+          <article class="project-card">
+            <div class="project-meta">PFE — Cybersécurité</div>
+            <h3>Projet de fin d’études en cybersécurité</h3>
+            <p class="project-tech">Cybersécurité · Réseaux · Sécurité des systèmes · Analyse · Architecture sécurisée</p>
+            <p>Réalisation d’un projet de fin d’études axé sur la cybersécurité, avec une approche orientée protection des systèmes, compréhension des risques et amélioration de la sécurité des environnements numériques.</p>
+            <ul>
+              <li>Étude d’architectures sécurisées et des mécanismes de défense réseau.</li>
+              <li>Analyse de problématiques liées à la sécurité des services et des infrastructures.</li>
+              <li>Application d’une démarche technique structurée pour renforcer la fiabilité et la protection d’un système.</li>
+            </ul>
+          </article>
 
-    <h3>IEEE Xtreme 19.0 — Compétition internationale de programmation (2025)</h3>
-    <p>
-      Participation à une compétition mondiale de 24 heures organisée par l’IEEE, centrée sur la résolution de
-      problèmes complexes en algorithmique.
-    </p>
-    <ul>
-      <li>Classement : 10ᵉ au niveau national et 71ᵉ au niveau international sur 8 169 équipes.</li>
-      <li>Renforcement du travail en équipe, de la gestion du temps et de la pensée algorithmique.</li>
-    </ul>
+          <article class="project-card">
+            <div class="project-meta">Projet embarqué en C</div>
+            <h3>Détecteur de choc pour voiture avec buzzer, SMS d’urgence et localisation</h3>
+            <p class="project-tech">C · Système embarqué · Détection de choc · Buzzer · GSM/SMS · Localisation</p>
+            <p>Développement d’un système embarqué capable de détecter un choc sur un véhicule, d’activer une alerte sonore et d’envoyer automatiquement un SMS d’urgence avec la localisation.</p>
+            <ul>
+              <li>Programmation en C de la logique de détection et de déclenchement d’alerte.</li>
+              <li>Activation automatique du buzzer lors d’un choc détecté.</li>
+              <li>Transmission d’un message d’urgence avec position géographique pour accélérer l’intervention.</li>
+            </ul>
+          </article>
 
-    <h3>Challenges OverTheWire — Bandit &amp; Natas</h3>
-    <p>
-      Résolution complète des niveaux Bandit (Linux & sécurité système) et Natas (sécurité web), avec une approche
-      progressive de l’analyse de vulnérabilités.
-    </p>
-    <ul>
-      <li>Développement de compétences en cybersécurité pratique (Linux, sécurité système et web).</li>
-      <li>Utilisation de scripts shell et raisonnement logique pour contourner et comprendre les mécanismes de sécurité.</li>
-    </ul>
-  </section>
+          <article class="project-card">
+            <div class="project-meta">Projet personnel</div>
+            <h3>Assistant de portefeuille personnel avec n8n, IA et Telegram</h3>
+            <p class="project-tech">n8n · IA · Telegram Bot · Google Sheets · APIs · Automatisation</p>
+            <p>Mise en place d’un assistant automatisé capable de suivre un portefeuille personnel, d’analyser des données financières et de fournir des recommandations enrichies par des informations contextuelles.</p>
+            <ul>
+              <li>Création de workflows n8n connectés à Telegram et Google Sheets.</li>
+              <li>Automatisation de l’analyse et génération d’insights personnalisés.</li>
+              <li>Intégration d’APIs pour enrichir les scénarios de recommandation.</li>
+            </ul>
+          </article>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p class="tagline-small">
-      Intéressé par un stage, un projet IoT ou une collaboration technique ? N’hésitez pas à me contacter.
-    </p>
-    <ul class="contact-list">
-      <li><strong>Email :</strong> <a href="mailto:ahmedmouine123@gmail.com">ahmedmouine123@gmail.com</a></li>
-      <li><strong>Téléphone :</strong> +216 20 718 746</li>
-      <li><strong>LinkedIn :</strong> <a href="https://linkedin.com/in/
-ahmedmouine" target="_blank">https://linkedin.com/in/ahmedmouine</a></li>
-    </ul>
-  </section>
+          <article class="project-card">
+            <div class="project-meta">Projet IoT</div>
+            <h3>Interface web connectée à des capteurs IoT</h3>
+            <p class="project-tech">IoT · Front-end web · Base de données · Visualisation temps réel</p>
+            <p>Développement d’une interface web permettant de visualiser en temps réel les données issues de capteurs IoT, avec stockage dans une base de données et affichage dynamique.</p>
+            <ul>
+              <li>Conception de la structure de la base de données pour les mesures IoT.</li>
+              <li>Intégration de la collecte depuis des cartes Arduino et ESP32.</li>
+              <li>Développement de vues web pour le suivi des valeurs et courbes en temps réel.</li>
+            </ul>
+          </article>
 
-</main>
+          <article class="project-card">
+            <div class="project-meta">Projet local</div>
+            <h3>Site web et amélioration sécurité pour une ferme locale</h3>
+            <p class="project-tech">Développement web · Présence en ligne · Bonnes pratiques sécurité · Support technique</p>
+            <p>Contribution à un projet avec une ferme locale en participant à la création du site et à l’amélioration de certains aspects liés à la sécurité et à la fiabilité de l’environnement numérique.</p>
+            <ul>
+              <li>Développement d’une présence web claire et accessible.</li>
+              <li>Prise en compte de notions de sécurité de base dans le projet.</li>
+              <li>Accompagnement technique orienté besoin réel du client.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
 
-<footer>
-  © <span id="year"></span> Ahmed Mouine — Portfolio Professionnel.
-</footer>
+    <section id="competitions">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <h2>Compétitions & challenges</h2>
+            <p class="section-lead">Des expériences qui ont renforcé ma rigueur, mon raisonnement algorithmique et ma pratique de la cybersécurité.</p>
+          </div>
+        </div>
+        <div class="timeline-grid">
+          <article class="timeline-card">
+            <h3>IEEE Xtreme 19.0 — 2025</h3>
+            <p>Participation à une compétition mondiale de programmation de 24 heures organisée par l’IEEE.</p>
+            <ul>
+              <li>Classement : 10ᵉ au niveau national et 71ᵉ au niveau international sur 8 169 équipes.</li>
+              <li>Renforcement du travail en équipe, de la gestion du temps et de la pensée algorithmique.</li>
+            </ul>
+          </article>
+          <article class="timeline-card">
+            <h3>OverTheWire — Bandit & Natas</h3>
+            <p>Résolution progressive de challenges autour de Linux, de la sécurité système et de la sécurité web.</p>
+            <ul>
+              <li>Développement de compétences en cybersécurité pratique.</li>
+              <li>Utilisation de scripts shell et de raisonnement logique pour comprendre les mécanismes de sécurité.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
 
-<script>
-  document.getElementById('year').textContent = new Date().getFullYear();
-</script>
+    <section id="contact">
+      <div class="container contact-wrap">
+        <article class="contact-panel">
+          <h2>Contact</h2>
+          <p class="section-lead">Intéressé par un stage, une mission freelance, un projet IoT ou une collaboration technique ?</p>
+          <ul class="contact-list">
+            <li><strong>Email :</strong> <a href="mailto:ahmedmouine123@gmail.com">ahmedmouine123@gmail.com</a></li>
+            <li><strong>Téléphone :</strong> +216 20 718 746</li>
+            <li><strong>LinkedIn :</strong> <a href="https://linkedin.com/in/ahmedmouine" target="_blank" rel="noopener noreferrer">linkedin.com/in/ahmedmouine</a></li>
+          </ul>
+        </article>
+        <aside class="contact-panel">
+          <h3>Disponibilité</h3>
+          <p>Disponible pour des projets étudiants, des collaborations techniques et des missions freelance liées à l’IoT, aux systèmes embarqués, au web connecté et à la cybersécurité.</p>
+          <a class="btn-primary" href="mailto:ahmedmouine123@gmail.com">Envoyer un email</a>
+        </aside>
+      </div>
+    </section>
+  </main>
 
+  <footer class="footer">
+    <div class="container">© <span id="year"></span> Ahmed Mouine — Portfolio Professionnel.</div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+    (function(){
+      const button = document.querySelector('[data-theme-toggle]');
+      const root = document.documentElement;
+      let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      root.setAttribute('data-theme', theme);
+      button.addEventListener('click', function(){
+        theme = theme === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', theme);
+      });
+    })();
+  </script>
 </body>
 </html>
